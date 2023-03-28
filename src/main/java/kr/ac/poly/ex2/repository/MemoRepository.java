@@ -38,6 +38,8 @@ public interface MemoRepository extends JpaRepository<Memo, Long> {
     @Modifying // update를 위한 Transactional , Modifying
     @Query("update Memo m set m.memoText = :#{#param.memoText} where m.mno=:#{#param.mno} ")
     int updateMemoText2(@Param("param") Memo memo);
+
+
     //상위 updateMemoText와 어노테이션선언과 구조는 비슷하지만 함수의 인자가 한개다. Memo 테이블를 가져와서 두 개의 속성을 수정할 수 있다.
     //각 튜플은 param으로 불려와, param.memoText와 param.mno로 query문 내에서 사용되고, 이렇ㄱ ㅔ사용하는 이유는 복잡해질 가능성을 줄이기 위함이다.
     // 특징으로는 1번항목에서는 단순히 :속성명 이었다면, :#{파라미터.속성명}으로 사용하는 특징이 있다.
@@ -45,7 +47,5 @@ public interface MemoRepository extends JpaRepository<Memo, Long> {
 
     @Query(value= "select m from Memo m where m.mno > :mno",
             countQuery = "select count(m) from Memo m where m.mno > :mno")
-    Page<Memo> getListWithQuery(Long mno, Pageable pageable);
-
-
+    Page<Memo> getListWithQuery(@Param("mno")Long mno, Pageable pageable);
 }

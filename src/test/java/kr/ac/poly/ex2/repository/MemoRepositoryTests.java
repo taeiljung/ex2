@@ -139,11 +139,11 @@ public class MemoRepositoryTests {
             System.out.println(memo);
         }
     }
-//    @Test
+    @Test
     public void testUpdateMemoText(){
         int UpdateMemoText = memoRepository.updateMemoText1(30L,"mno가 30인 내용 수정");
     }
-//    @Test
+   @Test
     public void testUpdateMemoText2(){
         Memo memo = new Memo();
         memo.setMno(31);
@@ -152,8 +152,8 @@ public class MemoRepositoryTests {
     }
     @Test
     public void testGetListWithQuery(){
-        Pageable pageable = PageRequest.of(0,50, Sort.by("mno"));
-        Page<Memo> result = memoRepository.getListWithQuery(32L,pageable);
+        Pageable pageable = PageRequest.of(0,50, Sort.by("mno").ascending());
+        Page<Memo> result = memoRepository.getListWithQuery(32L, pageable);
         result.get().forEach(
                 memo -> System.out.println(memo)
         );
